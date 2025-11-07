@@ -32,11 +32,14 @@ public partial class Coin : Node3D, ICoin
   #region State
   [Dependency] public EntityTable EntityTable => this.DependOn<EntityTable>();
   [Dependency] public IGameRepo GameRepo => this.DependOn<IGameRepo>();
+  [Dependency] public IMultiplayerRepo MultiplayerRepo => this.DependOn<IMultiplayerRepo>();
 
   public ICoinLogic CoinLogic { get; set; } = default!;
   public CoinLogic.Settings Settings { get; set; } = default!;
 
   public CoinLogic.IBinding CoinBinding { get; set; } = default!;
+
+  private bool _isCollected = false;
 
   #endregion State
 
@@ -109,12 +112,109 @@ public partial class Coin : Node3D, ICoin
 
   public void OnCollectorDetectorBodyEntered(Node body)
   {
+    if (_isCollected)
+    { return; }
+
     if (body is ICoinCollector target)
     {
-      // Whenever we come into contact with a coin collector, we begin the
-      // collection process.
-      CoinLogic.Input(new CoinLogic.Input.StartCollection(target));
+      if (Multiplayer.HasMultiplayerPeer())
+      {
+        if (Multiplayer.IsServer())
+        {
+          var collectorName = GetCollectorName(target);
+          StartCollectionLocal(target);
+          Rpc(MethodName.StartCollectionRemote, collectorName);
+        }
+        else
+        {
+          // Only the local authority should request collection for itself.
+          if (target is Node n && n.IsMultiplayerAuthority())
+          {
+            var collectorName = GetCollectorName(target);
+            RpcId(1, MethodName.RequestCollection, collectorName);
+          }
+        }
+      }
+      else
+      {
+        StartCollectionLocal(target);
+      }
     }
+  }
+
+  private string GetCollectorName(ICoinCollector collector)
+  {
+    if (Multiplayer.HasMultiplayerPeer() && collector is Node node)
+    {
+      // Map any player (local or remote) to a deterministic network name.
+      if (collector is IPlayer)
+      {
+        var authority = node.GetMultiplayerAuthority();
+        return $"Player_{authority}";
+      }
+    }
+
+    return collector.Name;
+  }
+
+  private void StartCollectionLocal(ICoinCollector target)
+  {
+    _isCollected = true;
+    CoinLogic.Input(new CoinLogic.Input.StartCollection(target));
+  }
+
+  [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = false, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+  private void RequestCollection(string collectorName)
+  {
+    if (!Multiplayer.IsServer() || _isCollected)
+    { return; }
+
+    if (EntityTable.Get<ICoinCollector>(collectorName) is { } target)
+    {
+      StartCollectionLocal(target);
+      Rpc(MethodName.StartCollectionRemote, collectorName);
+      return;
+    }
+
+    // Fallback if a client ever sends the host's id and the host local node is named "Player".
+    if (collectorName.StartsWith("Player_", System.StringComparison.Ordinal) && int.TryParse(collectorName.Substring(7), out var peerId))
+    {
+      if (peerId == Multiplayer.GetUniqueId())
+      {
+        if (EntityTable.Get<ICoinCollector>("Player") is { } hostTarget)
+        {
+          StartCollectionLocal(hostTarget);
+          Rpc(MethodName.StartCollectionRemote, collectorName);
+        }
+      }
+    }
+  }
+
+  [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = false, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+  private void StartCollectionRemote(string collectorName)
+  {
+    if (_isCollected)
+    { return; }
+
+    // Resolve collector by name; handle local player aliasing ("Player" vs "Player_<peerId>").
+    if (EntityTable.Get<ICoinCollector>(collectorName) is not { } target)
+    {
+      if (collectorName.StartsWith("Player_", System.StringComparison.Ordinal) && int.TryParse(collectorName.Substring(7), out var peerId))
+      {
+        var localId = Multiplayer.GetUniqueId();
+        if (peerId == localId)
+        {
+          // On the owning client, the local player is named "Player".
+          if (EntityTable.Get<ICoinCollector>("Player") is { } localTarget)
+          {
+            StartCollectionLocal(localTarget);
+          }
+        }
+      }
+      return;
+    }
+
+    StartCollectionLocal(target);
   }
 
   public void OnExitTree()

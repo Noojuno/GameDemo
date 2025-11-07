@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cywpu6lxdjhuu"]
+[gd_scene load_steps=11 format=3 uid="uid://cywpu6lxdjhuu"]
 
 [ext_resource type="Script" uid="uid://d3gnuv1uga3om" path="res://src/game/Game.cs" id="1_17mmo"]
 [ext_resource type="PackedScene" uid="uid://first_person_camera_tscn" path="res://src/player_camera/FirstPersonCamera.tscn" id="2_g21k4"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bn84ofaaq4o80" path="res://src/death_menu/DeathMenu.tscn" id="7_35ldn"]
 [ext_resource type="PackedScene" uid="uid://bthdrw6580hll" path="res://src/win_menu/WinMenu.tscn" id="8_ovoi6"]
 [ext_resource type="PackedScene" uid="uid://conmng5ejji6f" path="res://src/pause_menu/PauseMenu.tscn" id="9_yxma7"]
+[ext_resource type="Script" path="res://src/game/PlayerManager.cs" id="10_proxy"]
 
 [node name="Game" type="Node3D"]
 process_mode = 3
@@ -29,6 +30,10 @@ transform = Transform3D(-1, 3.48787e-16, 8.74228e-08, 3.48787e-16, 1, -3.48787e-
 
 [node name="Map" parent="PauseContainer" instance=ExtResource("3_cpkwg")]
 unique_name_in_owner = true
+
+[node name="CollectorProxyManager" type="Node3D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("10_proxy")
 
 [node name="InGameUi" parent="." instance=ExtResource("5_w4lns")]
 unique_name_in_owner = true

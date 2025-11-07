@@ -5,34 +5,41 @@ package App-Scene [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.tscn]] {
         [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs ScriptFile]]
         [Provisions]
         [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:32 IAppRepo]] - [[vscode://file/E:/Projects/2025/GameDemo/src/app/domain/AppRepo.cs Script]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:33 IMultiplayerRepo]] - [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/domain/IMultiplayerRepo.cs Script]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:34 IMultiplayerLogic]] - [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/state/MultiplayerLogic.cs Script]]
         --
         [Nodes]
         Menu - [[vscode://file/E:/Projects/2025/GameDemo/src/menu/Menu.cs Script]]
         Splash - [[vscode://file/E:/Projects/2025/GameDemo/src/menu/splash/Splash.cs Script]]
+        MultiplayerManager - [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/MultiplayerManager.cs Script]]
+        MultiplayerMenu - [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs Script]]
         [Properties]
-        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:50 AnimationPlayer]]
-        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:41 AppBinding]]
-        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:39 AppLogic]] - [[vscode://file/E:/Projects/2025/GameDemo/src/app/state/AppLogic.cs Script]]
-        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:38 AppRepo]] - [[vscode://file/E:/Projects/2025/GameDemo/src/app/domain/AppRepo.cs Script]]
-        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:49 BlankScreen]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:52 AnimationPlayer]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:43 AppBinding]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:41 AppLogic]] - [[vscode://file/E:/Projects/2025/GameDemo/src/app/state/AppLogic.cs Script]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:40 AppRepo]] - [[vscode://file/E:/Projects/2025/GameDemo/src/app/domain/AppRepo.cs Script]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:51 BlankScreen]]
         [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:25 Game]] - [[vscode://file/E:/Projects/2025/GameDemo/src/game/Game.cs Script]]
-        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:48 GamePreview]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:50 GamePreview]]
         [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:26 Instantiator]]
-        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:47 Menu]] - [[vscode://file/E:/Projects/2025/GameDemo/src/menu/Menu.cs Script]]
-        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:51 Splash]] - [[vscode://file/E:/Projects/2025/GameDemo/src/menu/splash/Splash.cs Script]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:49 Menu]] - [[vscode://file/E:/Projects/2025/GameDemo/src/menu/Menu.cs Script]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:54 MultiplayerManager]] - [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/MultiplayerManager.cs Script]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:55 MultiplayerMenu]] - [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs Script]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:53 Splash]] - [[vscode://file/E:/Projects/2025/GameDemo/src/menu/splash/Splash.cs Script]]
         --
         [Methods]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:77 _Input()]]
         [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:15 _Notification()]]
-        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:150 FadeInFromBlack()]]
-        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:156 FadeToBlack()]]
-        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:162 HideMenus()]]
-        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:55 Initialize()]]
-        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:134 OnAnimationFinished()]]
-        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:168 OnExitTree()]]
-        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:132 OnLoadGame()]]
-        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:130 OnNewGame()]]
-        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:73 OnReady()]]
-        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:180 OnSaveFileLoaded()]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:169 FadeInFromBlack()]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:175 FadeToBlack()]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:181 HideMenus()]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:59 Initialize()]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:153 OnAnimationFinished()]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:187 OnExitTree()]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:151 OnLoadGame()]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:149 OnNewGame()]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:92 OnReady()]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.cs:199 OnSaveFileLoaded()]]
     }
     class Menu  {
         [[vscode://file/E:/Projects/2025/GameDemo/src/menu/Menu.cs ScriptFile]]
@@ -62,6 +69,75 @@ package App-Scene [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.tscn]] {
         [[vscode://file/E:/Projects/2025/GameDemo/src/menu/splash/Splash.cs:28 OnExitTree()]]
         [[vscode://file/E:/Projects/2025/GameDemo/src/menu/splash/Splash.cs:25 OnReady()]]
     }
+    package MultiplayerManager-Type [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/MultiplayerManager.cs]] {
+        class MultiplayerManager  {
+            [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/MultiplayerManager.cs ScriptFile]]
+            [Provisions]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/MultiplayerManager.cs:20 IMultiplayerRepo]] - [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/domain/IMultiplayerRepo.cs Script]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/MultiplayerManager.cs:21 IMultiplayerLogic]] - [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/state/MultiplayerLogic.cs Script]]
+            --
+            [Properties]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/MultiplayerManager.cs:29 MultiplayerBinding]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/MultiplayerManager.cs:28 MultiplayerLogic]] - [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/state/MultiplayerLogic.cs Script]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/MultiplayerManager.cs:27 MultiplayerRepo]] - [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/domain/IMultiplayerRepo.cs Script]]
+            --
+            [Methods]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/MultiplayerManager.cs:16 _Notification()]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/MultiplayerManager.cs:103 Disconnect()]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/MultiplayerManager.cs:93 HostGame()]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/MultiplayerManager.cs:98 JoinGame()]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/MultiplayerManager.cs:128 OnConnectedToServer()]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/MultiplayerManager.cs:139 OnConnectionFailed()]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/MultiplayerManager.cs:176 OnExitTree()]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/MultiplayerManager.cs:108 OnPeerConnected()]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/MultiplayerManager.cs:122 OnPeerDisconnected()]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/MultiplayerManager.cs:47 OnReady()]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/MultiplayerManager.cs:145 OnServerDisconnected()]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/MultiplayerManager.cs:168 RegisterPeerOnClient()]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/MultiplayerManager.cs:151 RegisterPeerOnServer()]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/MultiplayerManager.cs:33 Setup()]]
+        }
+        class MultiplayerLogic  {
+            [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/state/MultiplayerLogic.cs ScriptFile]]
+            [Methods]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/state/MultiplayerLogic.cs:12 GetInitialState()]]
+        }
+        MultiplayerManager::MultiplayerLogic ---> MultiplayerLogic
+    }
+    class MultiplayerMenu  {
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs ScriptFile]]
+        [Dependencies]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs:21 MultiplayerRepo]] - [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/domain/IMultiplayerRepo.cs Script]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs:24 MultiplayerLogic]] - [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/state/MultiplayerLogic.cs Script]]
+        --
+        [Properties]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs:40 AddressLineEdit]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs:52 CloseButton]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs:37 DisconnectButton]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs:31 HostButton]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs:34 JoinButton]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs:49 PlayerList]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs:43 PortSpinBox]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs:46 StatusLabel]]
+        --
+        [Interface Methods]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs:89 HideMenu()]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs:83 ShowMenu()]]
+        [Methods]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs:17 _Notification()]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs:110 OnDisconnectButtonPressed()]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs:170 OnExitTree()]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs:94 OnHostButtonPressed()]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs:116 OnIsOnlineChanged()]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs:101 OnJoinButtonPressed()]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs:121 OnPeerConnected()]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs:126 OnPeerDisconnected()]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs:61 OnReady()]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs:74 OnResolved()]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs:57 Setup()]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs:160 UpdatePlayerList()]]
+        [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer_menu/MultiplayerMenu.cs:131 UpdateUI()]]
+    }
     class AppLogic  {
         [[vscode://file/E:/Projects/2025/GameDemo/src/app/state/AppLogic.cs ScriptFile]]
         [Methods]
@@ -90,6 +166,7 @@ package App-Scene [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.tscn]] {
             PlayerCamera - [[vscode://file/E:/Projects/2025/GameDemo/src/player_camera/FirstPersonCamera.cs Script]]
             Player - [[vscode://file/E:/Projects/2025/GameDemo/src/player/FirstPersonPlayer.cs Script]]
             Map - [[vscode://file/E:/Projects/2025/GameDemo/src/map/Map.cs Script]]
+            CollectorProxyManager - [[vscode://file/E:/Projects/2025/GameDemo/src/game/PlayerManager.cs Script]]
             InGameUi - [[vscode://file/E:/Projects/2025/GameDemo/src/in_game_ui/InGameUI.cs Script]]
             InGameAudio - [[vscode://file/E:/Projects/2025/GameDemo/src/in_game_audio/InGameAudio.cs Script]]
             DeathMenu - [[vscode://file/E:/Projects/2025/GameDemo/src/death_menu/DeathMenu.cs Script]]
@@ -328,25 +405,30 @@ package App-Scene [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.tscn]] {
                     [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs ScriptFile]]
                     [Dependencies]
                     [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:34 GameRepo]] - [[vscode://file/E:/Projects/2025/GameDemo/src/game/domain/GameRepo.cs Script]]
+                    [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:35 MultiplayerRepo]] - [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/domain/IMultiplayerRepo.cs Script]]
                     --
                     [Interface Properties]
-                    [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:36 CoinLogic]] - [[vscode://file/E:/Projects/2025/GameDemo/src/coin/state/CoinLogic.cs Script]]
+                    [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:37 CoinLogic]] - [[vscode://file/E:/Projects/2025/GameDemo/src/coin/state/CoinLogic.cs Script]]
                     [Properties]
                     [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:21 AnimationPlayer]]
-                    [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:39 CoinBinding]]
+                    [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:40 CoinBinding]]
                     [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:22 CoinModel]]
                     [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:28 CollectionTimeInSeconds]]
-                    [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:45 CollectorDetector]]
-                    [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:37 Settings]]
+                    [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:48 CollectorDetector]]
+                    [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:38 Settings]]
                     --
                     [Methods]
                     [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:17 _Notification()]]
-                    [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:110 OnCollectorDetectorBodyEntered()]]
-                    [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:120 OnExitTree()]]
-                    [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:107 OnPhysicsProcess()]]
-                    [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:62 OnReady()]]
-                    [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:77 OnResolved()]]
-                    [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:50 Setup()]]
+                    [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:145 GetCollectorName()]]
+                    [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:113 OnCollectorDetectorBodyEntered()]]
+                    [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:220 OnExitTree()]]
+                    [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:110 OnPhysicsProcess()]]
+                    [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:65 OnReady()]]
+                    [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:80 OnResolved()]]
+                    [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:166 RequestCollection()]]
+                    [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:53 Setup()]]
+                    [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:160 StartCollectionLocal()]]
+                    [[vscode://file/E:/Projects/2025/GameDemo/src/coin/Coin.cs:193 StartCollectionRemote()]]
                 }
                 class CoinLogic  {
                     [[vscode://file/E:/Projects/2025/GameDemo/src/coin/state/CoinLogic.cs ScriptFile]]
@@ -364,6 +446,28 @@ package App-Scene [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.tscn]] {
             Map::Jumpshroom2 ---> Jumpshroom
             Map::Coin ---> Coin
             Map::MapLogic ---> MapLogic
+        }
+        class PlayerManager  {
+            [[vscode://file/E:/Projects/2025/GameDemo/src/game/PlayerManager.cs ScriptFile]]
+            [Dependencies]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/game/PlayerManager.cs:20 MultiplayerRepo]] - [[vscode://file/E:/Projects/2025/GameDemo/src/multiplayer/domain/IMultiplayerRepo.cs Script]]
+            --
+            [Properties]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/game/PlayerManager.cs:27 PauseContainer]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/game/PlayerManager.cs:33 PlayerScene]]
+            --
+            [Methods]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/game/PlayerManager.cs:13 _Notification()]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/game/PlayerManager.cs:154 CreatePlayerForPeer()]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/game/PlayerManager.cs:110 CreateRemotePlayer()]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/game/PlayerManager.cs:137 EnsureLocalPlayerAuthority()]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/game/PlayerManager.cs:130 OnExitTree()]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/game/PlayerManager.cs:70 OnIsOnlineChanged()]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/game/PlayerManager.cs:78 OnPeerConnected()]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/game/PlayerManager.cs:101 OnPeerDisconnected()]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/game/PlayerManager.cs:39 OnReady()]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/game/PlayerManager.cs:46 OnResolved()]]
+            [[vscode://file/E:/Projects/2025/GameDemo/src/game/PlayerManager.cs:35 Setup()]]
         }
         class InGameUI  {
             [[vscode://file/E:/Projects/2025/GameDemo/src/in_game_ui/InGameUI.cs ScriptFile]]
@@ -529,6 +633,7 @@ package App-Scene [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.tscn]] {
         Game::PlayerCamera ---> FirstPersonCamera
         Game::Player ---> Player
         Game::Map ---> Map
+        Game::CollectorProxyManager ---> PlayerManager
         Game::InGameUi ---> InGameUI
         Game::InGameAudio ---> InGameAudio
         Game::DeathMenu ---> DeathMenu
@@ -539,6 +644,8 @@ package App-Scene [[vscode://file/E:/Projects/2025/GameDemo/src/app/App.tscn]] {
     }
     App::Menu ---> Menu
     App::Splash ---> Splash
+    App::MultiplayerManager ---> MultiplayerManager
+    App::MultiplayerMenu ---> MultiplayerMenu
     App::AppLogic ---> AppLogic
     App::AppRepo ---> AppRepo
     App::Game ---> Game
