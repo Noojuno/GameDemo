@@ -1,0 +1,71 @@
+stateDiagram-v2
+  direction LR
+
+  [*] --> Alive
+  Alive --> Dead: Killed
+  Dead --> Alive: Respawn
+
+  state Alive <<parallel>> {
+
+    state Locomotion {
+      [*] --> Grounded
+      Grounded --> Airborne: LeftFloor
+      Airborne --> Grounded: Landed
+      note right of Locomotion
+        Emits: Landed, LeftFloor, DashStarted, DashEnded
+        Consumes: MoveInput, JumpPressed, JumpReleased
+      end note
+    }
+
+    --
+
+    state Posture {
+      [*] --> Standing
+      Standing --> Crouching: CrouchPressed
+      Crouching --> Standing: CrouchReleased
+      Crouching --> Standing: ForcedUncrouch [ceiling_clear]
+      note right of Posture
+        Affects capsule height, camera offset, and speed modifiers.
+      end note
+    }
+
+    --
+
+    state Speed {
+      [*] --> Walk
+      Walk --> Sprint: SprintPressed
+        [stamina > 0 && grounded && !crouching && !dashing]
+      Sprint --> Walk: SprintReleased
+      Sprint --> Walk: stamina_depleted
+      Sprint --> Walk: LeftFloor
+      note right of Speed
+        Provides speed scalar; Locomotion reads it each physics tick.
+      end note
+    }
+
+    --
+
+    state Dash {
+      [*] --> Ready
+      Ready --> Dashing: DashPressed [can_dash]
+      Dashing --> Cooldown: DashTimeUp || HitWall
+      Cooldown --> Ready: CooldownElapsed
+      note right of Dash
+        On enter Dashing: emit DashStarted(dir)
+        On exit Dashing: emit DashEnded
+      end note
+    }
+
+    --
+
+    state Combat {
+      [*] --> Safe
+      Safe --> Shooting: FirePressed [has_ammo]
+      Shooting --> Safe: FireReleased || AmmoEmpty
+      Safe --> Reloading: ReloadPressed
+      Reloading --> Safe: ReloadComplete
+      note right of Combat
+        Shooting drives weapon logic; movement unaffected except by recoil.
+      end note
+    }
+  }

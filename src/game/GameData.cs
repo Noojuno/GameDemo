@@ -13,5 +13,5 @@ public partial record GameData
   public required PlayerData PlayerData { get; init; }
 
   [Save("player_camera_data")]
-  public required PlayerCameraData PlayerCameraData { get; init; }
+  public required FirstPersonCameraData PlayerCameraData { get; init; }
 }

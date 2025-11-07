@@ -1,0 +1,93 @@
+---
+alwaysApply: true
+---
+
+These rules streamline safe edits in this Godot + C# project using Chickensoft libraries.
+
+### Getting documentation
+
+- Use the context7 MCP tools to fetch up to date information for libraries
+
+### Scene and resource files
+
+- Do not create .uid files. If any are generated manually, delete them; Godot will recreate as needed.
+- When editing .tscn files:
+  - Keep existing node names and paths stable (tools like AutoInject bind by name).
+  - Prefer changing `ext_resource path` only; let Godot manage `uid` values.
+  - Preserve `unique_name_in_owner = true` flags on nodes that are referenced via `%Name` selectors.
+
+### Build cadence
+
+- After each code or scene change, run:
+  - `dotnet build` and fix compile errors before proceeding.
+  - Open the scene in Godot if resource UIDs need re-syncing.
+
+### AutoInject lifecycle pattern
+
+- New node scripts should follow this pattern:
+  - Add `[Meta(typeof(IAutoNode))]` to enable injection.
+  - Provide dependencies via `IProvide<T>` when the node is the source of truth (e.g., repos, settings, logic instances).
+  - Resolve dependencies with `[Dependency] public T Dep => this.DependOn<T>();`.
+  - Reference child nodes with `[Node("%ChildName")]` and keep those node names stable in scenes.
+  - Use methods: `Setup()` for constructing logic/data, `OnReady()` to enable processing, `OnResolved()` to bind logic and call `this.Provide()`, `OnExitTree()` to dispose/bindings.
+
+### LogicBlocks usage
+
+- Implement gameplay behavior in LogicBlocks, not node code-behind.
+- For each logic block:
+  - Define `Input`, `Output`, `Data`, `Settings`, and state hierarchy in separate files.
+  - Call `logic.Save(() => new Data())` before binding/starting.
+  - Bind in `OnResolved()` and call `logic.Start()` last.
+  - Use `.Output(...)` to communicate changes (e.g., velocity, animation), and handle outputs in node bindings to mutate Godot state.
+
+### Save/Load integration
+
+- Use `SaveChunk<T>` on nodes that own state to persist:
+  - Add the chunk to the parent `GameChunk` in `OnResolved()`.
+  - In `onSave`, capture transform, logic state machine, and other required fields.
+  - In `onLoad`, restore transform, node fields, `logic.RestoreFrom(...)`, then `logic.Start()`.
+
+### Input handling
+
+- Use generated `GameInputs` constants. Avoid hard-coded action names.
+- Camera input should use `InputUtilities.GetJoyPadActionPressedMotion(...)` and handle `InputEventMouseMotion`.
+
+### Camera and player conventions
+
+- Third-person camera: use `PlayerCamera` and call `UsePlayerCamera()` to make current (triggered by `GameLogic.Output.StartGame`).
+- First-person camera: use `FirstPersonCamera` scene; it implements `UsePlayerCamera()` as well.
+- Player movement is camera-relative; obtain basis from `GameRepo.CameraBasis` set by the active camera logic.
+- In first-person mode, hide the player’s visible model (e.g., `%PlayerModel.Visible = false`) to avoid rendering the body.
+
+### Scene wiring
+
+- Keep the game’s active content under `PauseContainer` as in `Game.tscn`.
+- When swapping cameras:
+  - Replace the camera scene reference in `Game.tscn` and if needed adjust the `Offset`.
+  - Do not toggle `Camera3D.current` directly; call the camera’s `UsePlayerCamera()`.
+
+### Entity registry
+
+- Register named entities in `EntityTable` in `OnResolved()` and remove them in `OnExitTree()`.
+- When adding collectible or interactable nodes, ensure they register with `EntityTable` if referenced by logic.
+
+### Performance & safety
+
+- Avoid doing significant work in `_Process`/`_PhysicsProcess` outside of forwarding inputs to LogicBlocks and applying outputs.
+- Keep exported tunables (`[Export]`) for design-time balancing; do not hard-code constants if they are meant to be tweaked.
+
+### File hygiene
+
+- Do not commit generated files: `.import`, `.uid`, `.generated/`, build outputs.
+- Keep scene paths under `res://src/...` consistent with existing structure.
+
+### Testing (optional guidance)
+
+- Prefer testing logic in isolation by binding logic to mocked interfaces (from `GodotNodeInterfaces`) rather than nodes.
+
+### When adding features
+
+- Create or extend a LogicBlock with explicit states and inputs.
+- Bind outputs to node visuals/physics in `OnResolved()`.
+- Add save/load if the feature has persistent state.
+- Run `dotnet build` and then validate in the Godot editor.

@@ -1,0 +1,23 @@
+@startuml FirstPersonPlayerCombatLogic
+state "FirstPersonPlayerCombatLogic State" as GameDemo_FirstPersonPlayerCombatLogic_State {
+  state "Reloading" as GameDemo_FirstPersonPlayerCombatLogic_Reloading
+  state "Safe" as GameDemo_FirstPersonPlayerCombatLogic_Safe
+  state "Shooting" as GameDemo_FirstPersonPlayerCombatLogic_Shooting
+}
+
+GameDemo_FirstPersonPlayerCombatLogic_Reloading --> GameDemo_FirstPersonPlayerCombatLogic_Safe : ReloadCompleted
+GameDemo_FirstPersonPlayerCombatLogic_Safe --> GameDemo_FirstPersonPlayerCombatLogic_Reloading : ReloadStarted
+GameDemo_FirstPersonPlayerCombatLogic_Safe --> GameDemo_FirstPersonPlayerCombatLogic_Shooting : FireStarted
+GameDemo_FirstPersonPlayerCombatLogic_Shooting --> GameDemo_FirstPersonPlayerCombatLogic_Reloading : ReloadStarted
+GameDemo_FirstPersonPlayerCombatLogic_Shooting --> GameDemo_FirstPersonPlayerCombatLogic_Safe : FireEnded
+
+GameDemo_FirstPersonPlayerCombatLogic_Reloading : OnEnter → ReloadStateChanged
+GameDemo_FirstPersonPlayerCombatLogic_Reloading : OnExit → ReloadStateChanged
+GameDemo_FirstPersonPlayerCombatLogic_Safe : OnFireStarted → FireStateChanged
+GameDemo_FirstPersonPlayerCombatLogic_Safe : OnReloadStarted → ReloadStateChanged
+GameDemo_FirstPersonPlayerCombatLogic_Shooting : OnEnter → FireStateChanged
+GameDemo_FirstPersonPlayerCombatLogic_Shooting : OnExit → FireStateChanged
+GameDemo_FirstPersonPlayerCombatLogic_Shooting : OnReloadStarted → ReloadStateChanged
+
+[*] --> GameDemo_FirstPersonPlayerCombatLogic_Safe
+@enduml

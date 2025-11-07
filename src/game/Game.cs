@@ -124,7 +124,7 @@ public partial class Game : Node3D, IGame
         {
           MapData = chunk.GetChunkSaveData<MapData>(),
           PlayerData = chunk.GetChunkSaveData<PlayerData>(),
-          PlayerCameraData = chunk.GetChunkSaveData<PlayerCameraData>()
+          PlayerCameraData = chunk.GetChunkSaveData<FirstPersonCameraData>()
         };
 
         return gameData;

@@ -1,0 +1,20 @@
+@startuml FirstPersonPlayerSpeedLogic
+state "FirstPersonPlayerSpeedLogic State" as GameDemo_FirstPersonPlayerSpeedLogic_State {
+  state "Sprint" as GameDemo_FirstPersonPlayerSpeedLogic_Sprint
+  state "Walk" as GameDemo_FirstPersonPlayerSpeedLogic_Walk
+}
+
+GameDemo_FirstPersonPlayerSpeedLogic_Sprint --> GameDemo_FirstPersonPlayerSpeedLogic_Walk : CrouchStarted
+GameDemo_FirstPersonPlayerSpeedLogic_Sprint --> GameDemo_FirstPersonPlayerSpeedLogic_Walk : DashStarted
+GameDemo_FirstPersonPlayerSpeedLogic_Sprint --> GameDemo_FirstPersonPlayerSpeedLogic_Walk : LeftFloor
+GameDemo_FirstPersonPlayerSpeedLogic_Sprint --> GameDemo_FirstPersonPlayerSpeedLogic_Walk : SprintEnded
+GameDemo_FirstPersonPlayerSpeedLogic_Walk --> GameDemo_FirstPersonPlayerSpeedLogic_Sprint : SprintStarted
+GameDemo_FirstPersonPlayerSpeedLogic_Walk --> GameDemo_FirstPersonPlayerSpeedLogic_Walk : CrouchEnded
+GameDemo_FirstPersonPlayerSpeedLogic_Walk --> GameDemo_FirstPersonPlayerSpeedLogic_Walk : CrouchStarted
+GameDemo_FirstPersonPlayerSpeedLogic_Walk --> GameDemo_FirstPersonPlayerSpeedLogic_Walk : SprintStarted
+
+GameDemo_FirstPersonPlayerSpeedLogic_Sprint : OnEnter → SpeedMultiplierChanged, SprintStateChanged
+GameDemo_FirstPersonPlayerSpeedLogic_Walk : OnEnter → SpeedMultiplierChanged, SprintStateChanged
+
+[*] --> GameDemo_FirstPersonPlayerSpeedLogic_Walk
+@enduml

@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://cywpu6lxdjhuu"]
 
 [ext_resource type="Script" uid="uid://d3gnuv1uga3om" path="res://src/game/Game.cs" id="1_17mmo"]
-[ext_resource type="PackedScene" uid="uid://pjmfnaiwwwed" path="res://src/player_camera/PlayerCamera.tscn" id="2_g21k4"]
+[ext_resource type="PackedScene" uid="uid://first_person_camera_tscn" path="res://src/player_camera/FirstPersonCamera.tscn" id="2_g21k4"]
 [ext_resource type="PackedScene" uid="uid://dqu3oaninqabd" path="res://src/map/Map.tscn" id="3_cpkwg"]
 [ext_resource type="PackedScene" uid="uid://bwbxe1hh3doh" path="res://src/player/Player.tscn" id="4_smjqx"]
 [ext_resource type="PackedScene" uid="uid://d3qf2po8l4dlr" path="res://src/in_game_ui/InGameUI.tscn" id="5_w4lns"]
@@ -21,7 +21,7 @@ process_mode = 1
 [node name="PlayerCamera" parent="PauseContainer" instance=ExtResource("2_g21k4")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5627, 6.93445, 13.521)
-Offset = Vector3(2.08165e-12, 1.6, 2.08165e-12)
+Offset = Vector3(0, 1.6, 0)
 
 [node name="Player" parent="PauseContainer" instance=ExtResource("4_smjqx")]
 unique_name_in_owner = true

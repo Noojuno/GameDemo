@@ -1,0 +1,24 @@
+@startuml FirstPersonPlayerPostureLogic
+state "FirstPersonPlayerPostureLogic State" as GameDemo_FirstPersonPlayerPostureLogic_State {
+  state "Crouching" as GameDemo_FirstPersonPlayerPostureLogic_Crouching
+  state "Sliding" as GameDemo_FirstPersonPlayerPostureLogic_Sliding
+  state "Standing" as GameDemo_FirstPersonPlayerPostureLogic_Standing
+}
+
+GameDemo_FirstPersonPlayerPostureLogic_Crouching --> GameDemo_FirstPersonPlayerPostureLogic_Crouching : CrouchEdgeBlockedChanged
+GameDemo_FirstPersonPlayerPostureLogic_Crouching --> GameDemo_FirstPersonPlayerPostureLogic_Crouching : CrouchEnded
+GameDemo_FirstPersonPlayerPostureLogic_Crouching --> GameDemo_FirstPersonPlayerPostureLogic_Crouching : CrouchStarted
+GameDemo_FirstPersonPlayerPostureLogic_Crouching --> GameDemo_FirstPersonPlayerPostureLogic_Standing : CrouchEnded
+GameDemo_FirstPersonPlayerPostureLogic_Sliding --> GameDemo_FirstPersonPlayerPostureLogic_Sliding : CrouchStarted
+GameDemo_FirstPersonPlayerPostureLogic_Sliding --> GameDemo_FirstPersonPlayerPostureLogic_Standing : CrouchEnded
+GameDemo_FirstPersonPlayerPostureLogic_Standing --> GameDemo_FirstPersonPlayerPostureLogic_Crouching : CrouchStarted
+
+GameDemo_FirstPersonPlayerPostureLogic_Crouching : OnCrouchEnded → CameraOffsetChanged, CrouchStateChanged
+GameDemo_FirstPersonPlayerPostureLogic_Crouching : OnEnter → CameraOffsetChanged, CrouchStateChanged
+GameDemo_FirstPersonPlayerPostureLogic_Sliding : OnCrouchEnded → CameraOffsetChanged, CrouchStateChanged
+GameDemo_FirstPersonPlayerPostureLogic_Sliding : OnEnter → CameraOffsetChanged, CrouchStateChanged
+GameDemo_FirstPersonPlayerPostureLogic_Standing : OnCrouchStarted → CameraOffsetChanged, CrouchStateChanged
+GameDemo_FirstPersonPlayerPostureLogic_Standing : OnEnter → CameraOffsetChanged, CrouchStateChanged
+
+[*] --> GameDemo_FirstPersonPlayerPostureLogic_Standing
+@enduml

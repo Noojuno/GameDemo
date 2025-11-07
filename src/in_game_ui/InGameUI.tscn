@@ -53,6 +53,15 @@ horizontal_alignment = 2
 layout_mode = 2
 theme_override_constants/margin_left = 24
 
+[node name="StateLabel" type="Label" parent="HBoxContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "State: --"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="SubViewportContainer" type="SubViewportContainer" parent="HBoxContainer/MarginContainer/HBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2

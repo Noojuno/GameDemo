@@ -6,7 +6,7 @@ public static class TestSaveData
 {
   public static MapData MapData { get; }
   public static PlayerData PlayerData { get; }
-  public static PlayerCameraData PlayerCameraData { get; }
+  public static FirstPersonCameraData PlayerCameraData { get; }
   public static GameData GameData { get; }
 
   static TestSaveData()
@@ -24,12 +24,11 @@ public static class TestSaveData
       Velocity = Vector3.Zero
     };
 
-    PlayerCameraData = new PlayerCameraData()
+    PlayerCameraData = new FirstPersonCameraData()
     {
       GlobalTransform = Transform3D.Identity,
       StateMachine = default!,
-      LocalPosition = Vector3.Zero,
-      OffsetPosition = Vector3.Zero
+      LocalPosition = Vector3.Zero
     };
 
     GameData = new GameData()

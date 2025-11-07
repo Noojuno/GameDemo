@@ -401,17 +401,16 @@ public class GameTest : TestClass
       Velocity = Vector3.Zero
     };
 
-    var playerCameraData = new PlayerCameraData()
+    var playerCameraData = new FirstPersonCameraData()
     {
       GlobalTransform = Transform3D.Identity,
       StateMachine = default!,
-      LocalPosition = Vector3.Zero,
-      OffsetPosition = Vector3.Zero
+      LocalPosition = Vector3.Zero
     };
 
     _gameChunk.Setup(c => c.GetChunkSaveData<MapData>()).Returns(mapData);
     _gameChunk.Setup(c => c.GetChunkSaveData<PlayerData>()).Returns(playerData);
-    _gameChunk.Setup(c => c.GetChunkSaveData<PlayerCameraData>())
+    _gameChunk.Setup(c => c.GetChunkSaveData<FirstPersonCameraData>())
       .Returns(playerCameraData);
 
     // Call the real game chunk, but pass in the fake game chunk to its
@@ -441,12 +440,11 @@ public class GameTest : TestClass
       Velocity = Vector3.Zero
     };
 
-    var playerCameraData = new PlayerCameraData()
+    var playerCameraData = new FirstPersonCameraData()
     {
       GlobalTransform = Transform3D.Identity,
       StateMachine = default!,
-      LocalPosition = Vector3.Zero,
-      OffsetPosition = Vector3.Zero
+      LocalPosition = Vector3.Zero
     };
 
     var gameData = new GameData()

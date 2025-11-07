@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://first_person_camera_tscn"]
+
+[ext_resource type="Script" uid="uid://first_person_camera_cs" path="res://src/player_camera/FirstPersonCamera.cs" id="1_fpcam"]
+[ext_resource type="Script" uid="uid://first_person_camera_settings_cs" path="res://src/player_camera/FirstPersonCameraSettings.cs" id="2_fpcam"]
+
+[sub_resource type="Resource" id="Resource_fpcam"]
+script = ExtResource("2_fpcam")
+MouseSensitivity = 0.2
+JoypadSensitivity = 5.0
+VerticalMax = 89.9
+VerticalMin = -89.9
+FollowSpeed = 20.0
+VerticalRotationAcceleration = 10.0
+HorizontalRotationAcceleration = 10.0
+
+[node name="FirstPersonCamera" type="Node3D"]
+script = ExtResource("1_fpcam")
+Settings = SubResource("Resource_fpcam")
+Offset = Vector3(0, 1.6, 0)
+
+[node name="GimbalHorizontal" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="GimbalVertical" type="Node3D" parent="GimbalHorizontal"]
+unique_name_in_owner = true
+
+[node name="Camera3D" type="Camera3D" parent="GimbalHorizontal/GimbalVertical"]
+unique_name_in_owner = true
+current = true
+

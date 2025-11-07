@@ -1,0 +1,21 @@
+@startuml FirstPersonPlayerDashLogic
+state "FirstPersonPlayerDashLogic State" as GameDemo_FirstPersonPlayerDashLogic_State {
+  state "Cooldown" as GameDemo_FirstPersonPlayerDashLogic_Cooldown
+  state "Dashing" as GameDemo_FirstPersonPlayerDashLogic_Dashing
+  state "Ready" as GameDemo_FirstPersonPlayerDashLogic_Ready
+}
+
+GameDemo_FirstPersonPlayerDashLogic_Cooldown --> GameDemo_FirstPersonPlayerDashLogic_Cooldown : PhysicsTick
+GameDemo_FirstPersonPlayerDashLogic_Cooldown --> GameDemo_FirstPersonPlayerDashLogic_Ready : PhysicsTick
+GameDemo_FirstPersonPlayerDashLogic_Dashing --> GameDemo_FirstPersonPlayerDashLogic_Cooldown : HitWall
+GameDemo_FirstPersonPlayerDashLogic_Dashing --> GameDemo_FirstPersonPlayerDashLogic_Cooldown : PhysicsTick
+GameDemo_FirstPersonPlayerDashLogic_Dashing --> GameDemo_FirstPersonPlayerDashLogic_Dashing : PhysicsTick
+GameDemo_FirstPersonPlayerDashLogic_Ready --> GameDemo_FirstPersonPlayerDashLogic_Dashing : DashRequested
+GameDemo_FirstPersonPlayerDashLogic_Ready --> GameDemo_FirstPersonPlayerDashLogic_Ready : DashRequested
+
+GameDemo_FirstPersonPlayerDashLogic_Dashing : OnHitWall → DashEnded
+GameDemo_FirstPersonPlayerDashLogic_Dashing : OnPhysicsTick → DashEnded
+GameDemo_FirstPersonPlayerDashLogic_Ready : OnDashRequested → DashStarted
+
+[*] --> GameDemo_FirstPersonPlayerDashLogic_Ready
+@enduml

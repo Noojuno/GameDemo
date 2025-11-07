@@ -1,0 +1,88 @@
+@startuml FirstPersonPlayerLogic
+state "FirstPersonPlayerLogic State" as GameDemo_FirstPersonPlayerLogic_State {
+  state "Alive" as GameDemo_FirstPersonPlayerLogic_State_Alive {
+    state "Airborne" as GameDemo_FirstPersonPlayerLogic_State_Airborne {
+      state "Falling" as GameDemo_FirstPersonPlayerLogic_State_Falling
+      state "Jumping" as GameDemo_FirstPersonPlayerLogic_State_Jumping
+      state "Liftoff" as GameDemo_FirstPersonPlayerLogic_State_Liftoff
+    }
+    state "Grounded" as GameDemo_FirstPersonPlayerLogic_State_Grounded {
+      state "Crouching" as GameDemo_FirstPersonPlayerLogic_State_Crouching {
+        state "IdleState" as GameDemo_FirstPersonPlayerLogic_State_Crouching_IdleState
+        state "MovingState" as GameDemo_FirstPersonPlayerLogic_State_Crouching_MovingState
+      }
+      state "Dashing" as GameDemo_FirstPersonPlayerLogic_State_Dashing
+      state "Idle" as GameDemo_FirstPersonPlayerLogic_State_Idle
+      state "Moving" as GameDemo_FirstPersonPlayerLogic_State_Moving {
+        state "Sprinting" as GameDemo_FirstPersonPlayerLogic_State_Sprinting
+      }
+    }
+  }
+  state "Dead" as GameDemo_FirstPersonPlayerLogic_State_Dead
+  state "Disabled" as GameDemo_FirstPersonPlayerLogic_State_Disabled
+}
+
+GameDemo_FirstPersonPlayerLogic_State_Airborne --> GameDemo_FirstPersonPlayerLogic_State_Airborne : DashRequested
+GameDemo_FirstPersonPlayerLogic_State_Airborne --> GameDemo_FirstPersonPlayerLogic_State_Dashing : DashRequested
+GameDemo_FirstPersonPlayerLogic_State_Airborne --> GameDemo_FirstPersonPlayerLogic_State_Falling : StartedFalling
+GameDemo_FirstPersonPlayerLogic_State_Airborne --> GameDemo_FirstPersonPlayerLogic_State_Idle : HitFloor
+GameDemo_FirstPersonPlayerLogic_State_Airborne --> GameDemo_FirstPersonPlayerLogic_State_Moving : HitFloor
+GameDemo_FirstPersonPlayerLogic_State_Alive --> GameDemo_FirstPersonPlayerLogic_State_Alive : CrouchEdgeBlockedChanged
+GameDemo_FirstPersonPlayerLogic_State_Alive --> GameDemo_FirstPersonPlayerLogic_State_Alive : CrouchEnded
+GameDemo_FirstPersonPlayerLogic_State_Alive --> GameDemo_FirstPersonPlayerLogic_State_Alive : CrouchStarted
+GameDemo_FirstPersonPlayerLogic_State_Alive --> GameDemo_FirstPersonPlayerLogic_State_Alive : DashRequested
+GameDemo_FirstPersonPlayerLogic_State_Alive --> GameDemo_FirstPersonPlayerLogic_State_Alive : Moved
+GameDemo_FirstPersonPlayerLogic_State_Alive --> GameDemo_FirstPersonPlayerLogic_State_Alive : PhysicsTick
+GameDemo_FirstPersonPlayerLogic_State_Alive --> GameDemo_FirstPersonPlayerLogic_State_Alive : Pushed
+GameDemo_FirstPersonPlayerLogic_State_Alive --> GameDemo_FirstPersonPlayerLogic_State_Alive : SprintEnded
+GameDemo_FirstPersonPlayerLogic_State_Alive --> GameDemo_FirstPersonPlayerLogic_State_Alive : SprintStarted
+GameDemo_FirstPersonPlayerLogic_State_Alive --> GameDemo_FirstPersonPlayerLogic_State_Dead : Killed
+GameDemo_FirstPersonPlayerLogic_State_Crouching --> GameDemo_FirstPersonPlayerLogic_State_Crouching : DashRequested
+GameDemo_FirstPersonPlayerLogic_State_Crouching --> GameDemo_FirstPersonPlayerLogic_State_Dashing : DashRequested
+GameDemo_FirstPersonPlayerLogic_State_Crouching --> GameDemo_FirstPersonPlayerLogic_State_Idle : CrouchEnded
+GameDemo_FirstPersonPlayerLogic_State_Crouching --> GameDemo_FirstPersonPlayerLogic_State_Moving : CrouchEnded
+GameDemo_FirstPersonPlayerLogic_State_Crouching --> GameDemo_FirstPersonPlayerLogic_State_Sprinting : CrouchEnded
+GameDemo_FirstPersonPlayerLogic_State_Crouching_IdleState --> GameDemo_FirstPersonPlayerLogic_State_Crouching_MovingState : StartedMovingHorizontally
+GameDemo_FirstPersonPlayerLogic_State_Crouching_MovingState --> GameDemo_FirstPersonPlayerLogic_State_Crouching_IdleState : StoppedMovingHorizontally
+GameDemo_FirstPersonPlayerLogic_State_Dashing --> GameDemo_FirstPersonPlayerLogic_State_Dashing : CrouchEnded
+GameDemo_FirstPersonPlayerLogic_State_Dashing --> GameDemo_FirstPersonPlayerLogic_State_Dashing : CrouchStarted
+GameDemo_FirstPersonPlayerLogic_State_Dashing --> GameDemo_FirstPersonPlayerLogic_State_Dashing : DashRequested
+GameDemo_FirstPersonPlayerLogic_State_Dashing --> GameDemo_FirstPersonPlayerLogic_State_Dashing : PhysicsTick
+GameDemo_FirstPersonPlayerLogic_State_Disabled --> GameDemo_FirstPersonPlayerLogic_State_Idle : Enable
+GameDemo_FirstPersonPlayerLogic_State_Grounded --> GameDemo_FirstPersonPlayerLogic_State_Falling : LeftFloor
+GameDemo_FirstPersonPlayerLogic_State_Grounded --> GameDemo_FirstPersonPlayerLogic_State_Jumping : Jump
+GameDemo_FirstPersonPlayerLogic_State_Grounded --> GameDemo_FirstPersonPlayerLogic_State_Liftoff : LeftFloor
+GameDemo_FirstPersonPlayerLogic_State_Idle --> GameDemo_FirstPersonPlayerLogic_State_Crouching_IdleState : CrouchStarted
+GameDemo_FirstPersonPlayerLogic_State_Idle --> GameDemo_FirstPersonPlayerLogic_State_Dashing : DashRequested
+GameDemo_FirstPersonPlayerLogic_State_Idle --> GameDemo_FirstPersonPlayerLogic_State_Idle : DashRequested
+GameDemo_FirstPersonPlayerLogic_State_Idle --> GameDemo_FirstPersonPlayerLogic_State_Moving : StartedMovingHorizontally
+GameDemo_FirstPersonPlayerLogic_State_Idle --> GameDemo_FirstPersonPlayerLogic_State_Sprinting : StartedMovingHorizontally
+GameDemo_FirstPersonPlayerLogic_State_Jumping --> GameDemo_FirstPersonPlayerLogic_State_Jumping : Jump
+GameDemo_FirstPersonPlayerLogic_State_Moving --> GameDemo_FirstPersonPlayerLogic_State_Crouching_MovingState : CrouchStarted
+GameDemo_FirstPersonPlayerLogic_State_Moving --> GameDemo_FirstPersonPlayerLogic_State_Dashing : DashRequested
+GameDemo_FirstPersonPlayerLogic_State_Moving --> GameDemo_FirstPersonPlayerLogic_State_Idle : StoppedMovingHorizontally
+GameDemo_FirstPersonPlayerLogic_State_Moving --> GameDemo_FirstPersonPlayerLogic_State_Moving : DashRequested
+GameDemo_FirstPersonPlayerLogic_State_Moving --> GameDemo_FirstPersonPlayerLogic_State_Sprinting : SprintStarted
+GameDemo_FirstPersonPlayerLogic_State_Sprinting --> GameDemo_FirstPersonPlayerLogic_State_Crouching_MovingState : CrouchStarted
+GameDemo_FirstPersonPlayerLogic_State_Sprinting --> GameDemo_FirstPersonPlayerLogic_State_Dashing : DashRequested
+GameDemo_FirstPersonPlayerLogic_State_Sprinting --> GameDemo_FirstPersonPlayerLogic_State_Idle : SprintEnded
+GameDemo_FirstPersonPlayerLogic_State_Sprinting --> GameDemo_FirstPersonPlayerLogic_State_Moving : SprintEnded
+GameDemo_FirstPersonPlayerLogic_State_Sprinting --> GameDemo_FirstPersonPlayerLogic_State_Sprinting : DashRequested
+
+GameDemo_FirstPersonPlayerLogic_State_Alive : OnPhysicsTick → MovementComputed
+GameDemo_FirstPersonPlayerLogic_State_Alive : OnPushed → VelocityChanged
+GameDemo_FirstPersonPlayerLogic_State_Crouching_IdleState : OnEnter → Idle
+GameDemo_FirstPersonPlayerLogic_State_Crouching_MovingState : OnEnter → Move
+GameDemo_FirstPersonPlayerLogic_State_Dashing : OnEnter → VelocityChanged
+GameDemo_FirstPersonPlayerLogic_State_Dashing : OnPhysicsTick → MovementComputed
+GameDemo_FirstPersonPlayerLogic_State_Disabled : OnEnter → Idle
+GameDemo_FirstPersonPlayerLogic_State_Falling : OnEnter → Fall
+GameDemo_FirstPersonPlayerLogic_State_Grounded : OnJump → VelocityChanged
+GameDemo_FirstPersonPlayerLogic_State_Idle : OnEnter → Idle
+GameDemo_FirstPersonPlayerLogic_State_Jumping : OnEnter → Jump
+GameDemo_FirstPersonPlayerLogic_State_Jumping : OnJump → VelocityChanged
+GameDemo_FirstPersonPlayerLogic_State_Liftoff : OnEnter → Jump
+GameDemo_FirstPersonPlayerLogic_State_Moving : OnEnter → Move
+
+[*] --> GameDemo_FirstPersonPlayerLogic_State_Disabled
+@enduml
