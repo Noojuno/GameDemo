@@ -1,0 +1,27 @@
+@startuml MultiplayerLogic
+state "MultiplayerLogic State" as GameDemo_MultiplayerLogic_State {
+  state "Client" as GameDemo_MultiplayerLogic_State_Client
+  state "Hosting" as GameDemo_MultiplayerLogic_State_Hosting
+  state "Offline" as GameDemo_MultiplayerLogic_State_Offline
+}
+
+GameDemo_MultiplayerLogic_State_Client --> GameDemo_MultiplayerLogic_State_Client : ConnectedToServer
+GameDemo_MultiplayerLogic_State_Client --> GameDemo_MultiplayerLogic_State_Offline : ConnectionFailed
+GameDemo_MultiplayerLogic_State_Client --> GameDemo_MultiplayerLogic_State_Offline : Disconnect
+GameDemo_MultiplayerLogic_State_Client --> GameDemo_MultiplayerLogic_State_Offline : ServerDisconnected
+GameDemo_MultiplayerLogic_State_Hosting --> GameDemo_MultiplayerLogic_State_Hosting : PeerConnected
+GameDemo_MultiplayerLogic_State_Hosting --> GameDemo_MultiplayerLogic_State_Hosting : PeerDisconnected
+GameDemo_MultiplayerLogic_State_Hosting --> GameDemo_MultiplayerLogic_State_Offline : Disconnect
+GameDemo_MultiplayerLogic_State_Offline --> GameDemo_MultiplayerLogic_State_Client : JoinGame
+GameDemo_MultiplayerLogic_State_Offline --> GameDemo_MultiplayerLogic_State_Hosting : HostGame
+
+GameDemo_MultiplayerLogic_State : OnIsOnlineChanged() → NetworkActive, NetworkInactive
+GameDemo_MultiplayerLogic_State_Client : OnConnectionFailed → ConnectionFailed
+GameDemo_MultiplayerLogic_State_Client : OnDisconnect → Disconnected
+GameDemo_MultiplayerLogic_State_Client : OnServerDisconnected → Disconnected
+GameDemo_MultiplayerLogic_State_Hosting : OnDisconnect → Disconnected
+GameDemo_MultiplayerLogic_State_Offline : OnHostGame → HostingStarted
+GameDemo_MultiplayerLogic_State_Offline : OnJoinGame → JoinedGame
+
+[*] --> GameDemo_MultiplayerLogic_State_Offline
+@enduml

@@ -6,7 +6,7 @@ using Chickensoft.Introspection;
 using Chickensoft.UMLGenerator;
 using Godot;
 
-public interface IApp : ICanvasLayer, IProvide<IAppRepo>;
+public interface IApp : ICanvasLayer, IProvide<IAppRepo>, IProvide<IMultiplayerRepo>, IProvide<IMultiplayerLogic>;
 
 [Meta(typeof(IAutoNode))]
 [ClassDiagram(UseVSCodePaths = true)]
@@ -30,6 +30,8 @@ public partial class App : CanvasLayer, IApp
   #region Provisions
 
   IAppRepo IProvide<IAppRepo>.Value() => AppRepo;
+  IMultiplayerRepo IProvide<IMultiplayerRepo>.Value() => MultiplayerManager.MultiplayerRepo;
+  IMultiplayerLogic IProvide<IMultiplayerLogic>.Value() => MultiplayerManager.MultiplayerLogic;
 
   #endregion Provisions
 
@@ -49,6 +51,8 @@ public partial class App : CanvasLayer, IApp
   [Node] public IColorRect BlankScreen { get; set; } = default!;
   [Node] public IAnimationPlayer AnimationPlayer { get; set; } = default!;
   [Node] public ISplash Splash { get; set; } = default!;
+  [Node] public MultiplayerManager MultiplayerManager { get; set; } = default!;
+  [Node] public IMultiplayerMenu MultiplayerMenu { get; set; } = default!;
 
   #endregion Nodes
 
@@ -68,6 +72,21 @@ public partial class App : CanvasLayer, IApp
     AnimationPlayer.AnimationFinished += OnAnimationFinished;
 
     this.Provide();
+  }
+
+  public override void _Input(InputEvent @event)
+  {
+    if (@event.IsActionPressed("multiplayer_menu"))
+    {
+      if (MultiplayerMenu.Visible)
+      {
+        MultiplayerMenu.HideMenu();
+      }
+      else
+      {
+        MultiplayerMenu.ShowMenu();
+      }
+    }
   }
 
   public void OnReady()

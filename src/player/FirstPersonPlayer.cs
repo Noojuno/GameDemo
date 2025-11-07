@@ -40,6 +40,9 @@ IProvide<FirstPersonPlayerLogic.Settings>
   [Dependency]
   public IAppRepo AppRepo => this.DependOn<IAppRepo>();
 
+  [Dependency]
+  public IMultiplayerRepo MultiplayerRepo => this.DependOn<IMultiplayerRepo>();
+
   #endregion Dependencies
 
   #region Exports
@@ -127,6 +130,12 @@ IProvide<FirstPersonPlayerLogic.Settings>
   private float _currentCameraOffset;
   private bool _isCrouchEdgeBlocked;
 
+  private Vector3 _lastSyncedPosition;
+  private Vector3 _lastSyncedVelocity;
+  private float _syncTimer = 0f;
+  private const float SYNC_INTERVAL = 0.05f;
+  private bool _isNetworkAuthority = true;
+
   #region State
 
   public IPlayerLogic PlayerLogic => FirstPersonPlayerLogic;
@@ -186,9 +195,7 @@ IProvide<FirstPersonPlayerLogic.Settings>
 
   public void OnReady()
   {
-    SetPhysicsProcess(true);
-    // Hide the player model in first-person mode
-    PlayerModelNode.Visible = false;
+    RefreshNetworkAuthority();
 
     if (GroundCollisionShape.Shape is CapsuleShape3D capsule)
     {
@@ -240,6 +247,11 @@ IProvide<FirstPersonPlayerLogic.Settings>
 
   public void OnPhysicsProcess(double delta)
   {
+    if (!_isNetworkAuthority)
+    {
+      return;
+    }
+
     HandleSprint(Input.IsActionPressed(GameInputs.Sprint));
     HandleCrouch(Input.IsActionPressed(GameInputs.Crouch));
 
@@ -265,6 +277,39 @@ IProvide<FirstPersonPlayerLogic.Settings>
     MoveAndSlide();
 
     FirstPersonPlayerLogic.Input(new FirstPersonPlayerLogic.Input.Moved(GlobalPosition));
+
+    SyncNetworkState(delta);
+  }
+
+  private void SyncNetworkState(double delta)
+  {
+    if (!Multiplayer.HasMultiplayerPeer() || !_isNetworkAuthority)
+    { return; }
+
+    _syncTimer += (float)delta;
+    if (_syncTimer >= SYNC_INTERVAL)
+    {
+      _syncTimer = 0f;
+      var position = GlobalPosition;
+      var velocity = Velocity;
+
+      if (position != _lastSyncedPosition || velocity != _lastSyncedVelocity)
+      {
+        _lastSyncedPosition = position;
+        _lastSyncedVelocity = velocity;
+        Rpc(MethodName.ReceiveNetworkState, position, velocity);
+      }
+    }
+  }
+
+  [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = false, TransferMode = MultiplayerPeer.TransferModeEnum.Unreliable)]
+  private void ReceiveNetworkState(Vector3 position, Vector3 velocity)
+  {
+    if (_isNetworkAuthority)
+    { return; }
+
+    GlobalPosition = position;
+    Velocity = velocity;
   }
 
   public static bool ShouldJump(bool jumpPressed, bool jumpJustPressed) =>
@@ -470,6 +515,17 @@ IProvide<FirstPersonPlayerLogic.Settings>
     (Velocity with { Y = 0f }).Length() > Settings.StoppingSpeed;
 
   #endregion IPlayer
+
+  public void RefreshNetworkAuthority()
+  {
+    _isNetworkAuthority = !Multiplayer.HasMultiplayerPeer() || IsMultiplayerAuthority();
+    SetPhysicsProcess(_isNetworkAuthority);
+
+    if (PlayerModelNode is not null)
+    {
+      PlayerModelNode.Visible = !_isNetworkAuthority;
+    }
+  }
 
   #region IPushEnabled
 
